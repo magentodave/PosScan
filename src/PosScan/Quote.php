@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: dmaji
- * Date: 6/7/2019
- * Time: 10:24 PM
- */
-
 namespace PosScan;
 
 use PosScan\Item;
@@ -66,16 +59,23 @@ class Quote
         return $this->items;
     }
 
+    public function getItemCount(string $name){
+        $return = [];
+        foreach ($this->items as $item){
+            if($item->getName() === $name){
+                $return[] = $item->getName();
+            }
+        }
+        $counts = array_count_values($return);
+
+        return $counts[$name];
+    }
     /**
      * @param $name
      * @param $price
      */
-    public function updatePrice($name, $price)
+    public function updatePrice($key, $price)
     {
-        foreach ($this->items as $key=>$item){
-            if($item->getName() === $name){
-                $this->items[$key]->setPrice($price);
-            }
-        }
+        $this->items[$key]->setPrice($price);
     }
 }

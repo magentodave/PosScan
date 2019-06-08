@@ -35,7 +35,7 @@ class Terminal
             $this->addItem($scanned);
 
         } catch (TerminalException $exception){
-            echo $exception->getMessage();
+            echo $exception->getMessage() . "\n";
         }
     }
 
@@ -45,13 +45,16 @@ class Terminal
     private function checkDiscount()
     {
         $i=1;
-        foreach($this->quote->getItems() as $item){
-
-            if($this->products->getProductStep($item->getName()) === $i){
-
+        $u=0;
+        foreach($this->quote->getItems() as $key=>$item){
+            if($this->quote->getItemCount($item->getName()) >= $this->products->getProductStep($item->getName())){
                 $newPrice = $this->products->getProductDiscount($item->getName()) / $this->products->getProductStep($item->getName());
-
-                $this->quote->updatePrice($item->getName(), $newPrice);
+                if($u < $this->products->getProductStep($item->getName())){
+                    $this->quote->updatePrice($key, $newPrice);
+                    $u++;
+                } else {
+                    $u=0;
+                }
             }
             $i++;
         }

@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: dmaji
- * Date: 6/7/2019
- * Time: 11:55 PM
- */
-
 namespace PosScan;
 
 
@@ -26,12 +19,13 @@ class Products
     public function load(array $products)
     {
         foreach($products as $product){
-            $this->products[$product[self::PRICING_NAME]][self::PRICING_PRICE]    = $product[self::PRICING_PRICE] ?? 0.00;
-            $this->products[$product[self::PRICING_NAME]][self::PRICING_STEP]     = $product[self::PRICING_STEP] ?? 0;
-            $this->products[$product[self::PRICING_NAME]][self::PRICING_DISCOUNT] = $product[self::PRICING_DISCOUNT] ?? 0.00;
+            $this->products[$product[self::PRICING_NAME]][self::PRICING_PRICE]    = $product[self::PRICING_PRICE] ?? (float) 0.00;
+            $this->products[$product[self::PRICING_NAME]][self::PRICING_STEP]     = $product[self::PRICING_STEP] ?? 1;
+            $this->products[$product[self::PRICING_NAME]][self::PRICING_DISCOUNT] = $product[self::PRICING_DISCOUNT] ?? $this->products[$product[self::PRICING_NAME]][self::PRICING_PRICE];
         }
     }
-    public function isExist($name){
+    public function isExist($name)
+    {
         return (true === isset($this->products[$name]));
     }
     /**
