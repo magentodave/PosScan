@@ -48,7 +48,7 @@ class Item
      * @param $price
      * @return float
      */
-    public function getPrice($price)
+    public function getPrice()
     {
         return floatval($this->price);
     }

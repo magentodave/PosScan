@@ -26,9 +26,9 @@ class Products
     public function load(array $products)
     {
         foreach($products as $product){
-            $this->products[$product[self::PRICING_NAME]][self::PRICING_PRICE] = $product[self::PRICING_PRICE];
-            $this->products[$product[self::PRICING_NAME]][self::PRICING_STEP] = $product[self::PRICING_STEP];
-            $this->products[$product[self::PRICING_NAME]][self::PRICING_DISCOUNT] = $product[self::PRICING_DISCOUNT];
+            $this->products[$product[self::PRICING_NAME]][self::PRICING_PRICE]    = $product[self::PRICING_PRICE] ?? 0.00;
+            $this->products[$product[self::PRICING_NAME]][self::PRICING_STEP]     = $product[self::PRICING_STEP] ?? 0;
+            $this->products[$product[self::PRICING_NAME]][self::PRICING_DISCOUNT] = $product[self::PRICING_DISCOUNT] ?? 0.00;
         }
     }
     public function isExist($name){

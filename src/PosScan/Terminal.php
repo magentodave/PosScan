@@ -13,28 +13,17 @@ class Terminal
      */
     protected $quote;
     /**
-     * @var \PosScan\TerminalException
-     */
-    protected $exception;
-    /**
      * @var array
      */
     protected $pricing;
 
     /**
      * Terminal constructor.
-     * @param \PosScan\Quote $quote
-     * @param \PosScan\TerminalException $exception
      */
-    public function __construct(
-        Quote $quote,
-        Products $products,
-        TerminalException  $exception
-    )
+    public function __construct()
     {
-        $this->quote = $quote;
-        $this->products = $products;
-        $this->exception = $exception;
+        $this->quote = new Quote();
+        $this->products = new Products();
     }
 
     /**
@@ -49,16 +38,37 @@ class Terminal
             echo $exception->getMessage();
         }
     }
+
+    /**
+     * Update the Item Price based on Step/Discount
+     */
+    private function checkDiscount()
+    {
+        $i=1;
+        foreach($this->quote->getItems() as $item){
+
+            if($this->products->getProductStep($item->getName()) === $i){
+
+                $newPrice = $this->products->getProductDiscount($item->getName()) / $this->products->getProductStep($item->getName());
+
+                $this->quote->updatePrice($item->getName(), $newPrice);
+            }
+            $i++;
+        }
+    }
+
+    /**
+     * @param $scanned
+     * @throws \PosScan\TerminalException
+     */
     private function addItem($scanned)
     {
         if(!$this->products->isExist($scanned)){
             throw new TerminalException('Item not found.');
         }
-
         $item = new Item();
         $item->setPrice($this->products->getProductPrice($scanned));
         $item->setName($scanned);
-
         $this->quote->add($item);
     }
 
@@ -75,6 +85,8 @@ class Terminal
      */
     public function total()
     {
+        $this->checkDiscount();
+
         return $this->quote->getTotal();
     }
 }

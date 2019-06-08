@@ -33,6 +33,49 @@ class Quote
      */
     public function getTotal()
     {
-        return floatval($this->total);
+        $return = [];
+        foreach ($this->items as $item){
+            $return[] = $item->getPrice();
+        }
+
+        return floatval(array_sum($return));
+    }
+    /**
+     * @return mixed
+     */
+    protected function getItemsByName(string $name)
+    {
+        $return = [];
+        foreach ($this->items as $item){
+            if($item->getName() === $name){
+                $return[] = $item;
+            }
+        }
+
+        return $return;
+    }
+    /**
+     * @return mixed
+     */
+    public function getItems(string $name = null)
+    {
+        if(!is_null($name)){
+            return $this->getItemsByName($name);
+        }
+
+        return $this->items;
+    }
+
+    /**
+     * @param $name
+     * @param $price
+     */
+    public function updatePrice($name, $price)
+    {
+        foreach ($this->items as $key=>$item){
+            if($item->getName() === $name){
+                $this->items[$key]->setPrice($price);
+            }
+        }
     }
 }
