@@ -24,6 +24,11 @@ class Products
             $this->products[$product[self::PRICING_NAME]][self::PRICING_DISCOUNT] = $product[self::PRICING_DISCOUNT] ?? $this->products[$product[self::PRICING_NAME]][self::PRICING_PRICE];
         }
     }
+
+    /**
+     * @param $name
+     * @return bool
+     */
     public function isExist($name)
     {
         return (true === isset($this->products[$name]));
@@ -32,7 +37,8 @@ class Products
      * @param $name
      * @return mixed
      */
-    public function getProductPrice($name){
+    public function getProductPrice($name)
+    {
         return $this->products[$name][self::PRICING_PRICE];
     }
 
@@ -40,7 +46,8 @@ class Products
      * @param $name
      * @return mixed
      */
-    public function getProductStep($name){
+    public function getProductStep($name)
+    {
         return $this->products[$name][self::PRICING_STEP];
     }
 
@@ -48,7 +55,8 @@ class Products
      * @param $name
      * @return mixed
      */
-    public function getProductDiscount($name){
+    public function getProductDiscount($name)
+    {
         return $this->products[$name][self::PRICING_DISCOUNT];
     }
 }

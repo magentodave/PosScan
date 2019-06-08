@@ -38,7 +38,6 @@ class Item
     }
 
     /**
-     * @param $price
      * @return float
      */
     public function getPrice()

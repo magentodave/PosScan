@@ -33,7 +33,6 @@ class Terminal
     {
         try {
             $this->addItem($scanned);
-
         } catch (TerminalException $exception){
             echo $exception->getMessage() . "\n";
         }

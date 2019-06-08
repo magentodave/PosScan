@@ -33,6 +33,7 @@ class Quote
 
         return floatval(array_sum($return));
     }
+
     /**
      * @return mixed
      */
@@ -47,6 +48,7 @@ class Quote
 
         return $return;
     }
+
     /**
      * @return mixed
      */
@@ -59,7 +61,12 @@ class Quote
         return $this->items;
     }
 
-    public function getItemCount(string $name){
+    /**
+     * @param string $name
+     * @return mixed
+     */
+    public function getItemCount(string $name)
+    {
         $return = [];
         foreach ($this->items as $item){
             if($item->getName() === $name){
@@ -70,6 +77,7 @@ class Quote
 
         return $counts[$name];
     }
+
     /**
      * @param $name
      * @param $price
