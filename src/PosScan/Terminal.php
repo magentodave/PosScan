@@ -43,12 +43,11 @@ class Terminal
      */
     private function applyDiscount()
     {
-        $i=1;
-        $u=0;
         if(!$this->quote->isItemsExist()) {
             throw new TerminalException('No items scanned.');
         }
-
+        $i=1;
+        $u=0;
         foreach($this->quote->getItems() as $key=>$item){
             if($this->quote->getItemCount($item->getName()) >= $this->products->getProductStep($item->getName())){
                 $newPrice = $this->products->getProductDiscount($item->getName()) / $this->products->getProductStep($item->getName());
