@@ -80,11 +80,26 @@ class Terminal
     /**
      * @param array $pricing
      */
-    public function setPricing(array $pricing)
+    public function setPricing($pricing = [])
     {
-        $this->products->load($pricing);
+        try {
+            $this->load($pricing);
+        }catch (TerminalException $exception){
+            echo $exception->getMessage();
+        }
     }
 
+    /**
+     * @param $data
+     * @throws \PosScan\TerminalException
+     */
+    private function load($data)
+    {
+        if(!is_array($data) || count($data) < 1){
+            throw new TerminalException('Pricing not set.');
+        }
+        $this->products->load($data);
+    }
     /**
      * @return float
      */
