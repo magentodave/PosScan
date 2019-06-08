@@ -31,7 +31,7 @@ class Quote
             $return[] = $item->getPrice();
         }
 
-        return floatval(array_sum($return));
+        return number_format(array_sum($return), 2);
     }
 
     /**
