@@ -46,7 +46,6 @@ class Terminal
         if(!$this->quote->isItemsExist()) {
             throw new TerminalException('No items scanned.');
         }
-        $i=1;
         $u=0;
         foreach($this->quote->getItems() as $key=>$item){
             if($this->quote->getItemCount($item->getName()) >= $this->products->getProductStep($item->getName())){
@@ -58,7 +57,6 @@ class Terminal
                     $u=0;
                 }
             }
-            $i++;
         }
     }
 
