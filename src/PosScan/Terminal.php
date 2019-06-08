@@ -39,12 +39,16 @@ class Terminal
     }
 
     /**
-     * Update the Item Price based on Step/Discount
+     * @throws \PosScan\TerminalException
      */
-    private function checkDiscount()
+    private function applyDiscount()
     {
         $i=1;
         $u=0;
+        if(!$this->quote->isItemsExist()) {
+            throw new TerminalException('No items scanned.');
+        }
+
         foreach($this->quote->getItems() as $key=>$item){
             if($this->quote->getItemCount($item->getName()) >= $this->products->getProductStep($item->getName())){
                 $newPrice = $this->products->getProductDiscount($item->getName()) / $this->products->getProductStep($item->getName());
@@ -87,7 +91,11 @@ class Terminal
      */
     public function total()
     {
-        $this->checkDiscount();
+        try {
+            $this->applyDiscount();
+        } catch (TerminalException $exception) {
+            echo $exception->getMessage();
+        }
 
         return $this->quote->getTotal();
     }

@@ -79,6 +79,13 @@ class Quote
     }
 
     /**
+     * @return bool
+     */
+    public function isItemsExist()
+    {
+        return (count($this->items) > 0) ? true : false;
+    }
+    /**
      * @param $name
      * @param $price
      */
