@@ -84,7 +84,7 @@ class Terminal
     {
         try {
             $this->load($pricing);
-        }catch (TerminalException $exception){
+        } catch (TerminalException $exception){
             echo $exception->getMessage();
         }
     }

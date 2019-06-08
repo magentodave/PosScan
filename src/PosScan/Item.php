@@ -7,11 +7,11 @@ class Item
     /**
      * @var
      */
-    public $price;
+    protected $price;
     /**
      * @var
      */
-    public $name;
+    protected $name;
 
     /**
      * @param $name

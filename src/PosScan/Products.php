@@ -11,7 +11,7 @@ class Products
     /**
      * @var
      */
-    public $products;
+    protected $products;
 
     /**
      * @param array $products
